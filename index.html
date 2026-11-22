@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MBTI 검사 (간편·정밀) & 16유형 가이드</title>
+<meta name="description" content="3분 간편 검사와 60문항 정밀 검사로 내 MBTI를 확인하고, 16유형별 성향·습관·직업·연애·공부법까지 한 곳에서.">
+<meta property="og:type" content="website">
+<meta property="og:title" content="MBTI 점쳐보기 · 간편·정밀 검사 + 연애 케미">
+<meta property="og:description" content="3분 간편 · 60문항 정밀 검사, 연애 케미와 직군 매트릭스, 16유형 가이드. 재미로 보는 성향 검사예요.">
+<meta property="og:url" content="https://ckurusa.github.io/namidda_mbti/">
+<meta property="og:image" content="https://ckurusa.github.io/namidda_mbti/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%20100%20100%22%3E%3Crect%20width%3D%22100%22%20height%3D%22100%22%20rx%3D%2222%22%20fill%3D%22%235b5bd6%22%2F%3E%3Ctext%20x%3D%2250%22%20y%3D%2268%22%20font-size%3D%2258%22%20text-anchor%3D%22middle%22%3E%F0%9F%94%AE%3C%2Ftext%3E%3C%2Fsvg%3E">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <b>🧭 MBTI</b>
+  <nav><a href="#" id="nTest" onclick="navTest();return false">검사</a><a href="#lab" id="nLab">점쳐보기</a><a href="#guide" id="nGuide">유형 가이드</a></nav>
+</header>
+
+<!-- HOME -->
+<section id="home">
+  <h1>🧭 MBTI 성향 검사</h1>
+  <p class="sub">나의 성향을 알아보고, 생활에 적용하고, 자기계발 방법까지 찾아보세요. <a href="#guide">16유형 가이드 먼저 보기 →</a></p>
+
+  <div class="modes">
+    <button class="mode" onclick="start('quick')">
+      <span class="tag">간편 검사</span>
+      <b>빠르게 확인하기</b>
+      <span class="sub">20문항 · 약 3분</span>
+      <ul><li>축마다 5문항</li><li>대략적인 유형 파악용</li><li>경계에 걸린 축은 정밀 검사를 권장</li></ul>
+    </button>
+    <button class="mode" onclick="start('full')">
+      <span class="tag">정밀 검사</span>
+      <b>꼼꼼하게 분석하기</b>
+      <span class="sub">60문항 · 약 10분</span>
+      <ul><li>축마다 15문항</li><li>선호 강도를 더 안정적으로 측정</li><li>간편 검사 결과와 비교 가능</li></ul>
+    </button>
+  </div>
+
+  <div class="card cta">
+    <b>🔎 검사 없이도 점쳐볼 수 있어요</b>
+    <p class="sub">내 MBTI + 좋아하는 사람의 MBTI → 연애 케미 · 내 직군 → 어울림 지수</p>
+    <a class="btn pri" href="#lab">점쳐보기 →</a> <a class="btn" href="#lab//heat">💞 케미 히트맵</a>
+  </div>
+
+  <div class="card hide" id="resumeCard">
+    <b>⏯ 진행 중인 검사가 있어요</b>
+    <p class="sub" id="resumeMsg" style="margin:4px 0 10px"></p>
+    <button class="btn pri" onclick="resume()">이어서 하기</button>
+    <button class="btn" onclick="clearProgress();renderResume()">버리기</button>
+  </div>
+
+  <div class="note">
+    각 문항에 <b>"평소의 나"</b>를 기준으로 솔직하게 답하세요. “이상적인 나”나 “일할 때만의 나”가 아니라 편안한 상태의 나를 떠올리면 정확도가 올라갑니다.
+  </div>
+
+  <div class="card hide" id="historyCard">
+    <h2>📜 내 검사 기록</h2>
+    <table class="hist" id="histTable"></table>
+    <p class="sub" id="histMsg"></p>
+    <button class="btn" onclick="clearHistory()">기록 삭제</button>
+  </div>
+
+  <p class="sub">※ 공식 MBTI®(MBTI 검사 기관의 검사)가 아닌, 4가지 선호 지표를 바탕으로 만든 자기 이해용 간이 검사입니다. 진단이 아니라 참고 자료로 활용하세요.</p>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz" class="hide">
+  <span class="tag" id="modeTag"></span>
+  <div class="progress"><i id="bar"></i></div>
+  <div class="sub" id="count"></div>
+  <div class="card">
+    <div class="q" id="qText"></div>
+    <div class="scale" id="scale"></div>
+    <div class="nav">
+      <button class="btn" id="prev" onclick="prev()">← 이전</button>
+      <button class="btn" onclick="goHome()">처음으로</button>
+    </div>
+  </div>
+</section>
+
+<!-- RESULT -->
+<section id="result" class="hide"></section>
+
+<!-- 점쳐보기 -->
+<section id="lab" class="hide"></section>
+
+<!-- 유형 가이드 목록 -->
+<section id="glist" class="hide">
+  <h1>🔮 MBTI 16유형 완전 가이드</h1>
+  <p class="sub">성향 · 습관 · 직업 · 연애 · 공부법까지. 내 유형을 눌러 “어, 이거 완전 난데?” 순간을 만나 보세요.</p>
+  <div class="card cta">
+    <b>내 유형이 뭔지 모르겠다면?</b>
+    <p class="sub">3분 간편 검사 → 더 정확하게 알고 싶다면 정밀 검사(60문항)</p>
+    <a class="btn pri" href="#" onclick="navTest();return false">검사하러 가기 →</a>
+  </div>
+  <div class="filters" id="filters"></div>
+  <div class="grid" id="grid"></div>
+</section>
+
+<!-- 유형 가이드 상세 -->
+<section id="gdetail" class="hide"></section>
+
+</div>
+
+<script src="js/data/questions.js"></script>
+<script src="js/data/types.js"></script>
+<script src="js/data/short.js"></script>
+<script src="js/data/letters.js"></script>
+<script src="js/data/lab.js"></script>
+<script src="js/core.js"></script>
+<script src="js/avatar.js"></script>
+<script src="js/match.js"></script>
+<script src="js/share.js"></script>
+<script src="js/scoring.js"></script>
+<script src="js/history.js"></script>
+<script src="js/result.js"></script>
+<script src="js/quiz.js"></script>
+<script src="js/lab.js"></script>
+<script src="js/guide.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
