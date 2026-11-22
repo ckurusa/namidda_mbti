@@ -117,7 +117,7 @@ for (const l of "ESNTFJIP") { tooLong(A.WPLUS[l], "WPLUS." + l); tooLong(A.WMINU
 for (const [k, v] of Object.entries(A.MOOD_TIP)) for (const [lv, s] of Object.entries(v)) tooLong(s, `MOOD_TIP.${k}.${lv}`);
 for (const st of A.STAGES) for (const l of "ESNTFJIP") tooLong(st.tips[l], `STAGES.${st.k}.${l}`);
 for (const [ax, v] of Object.entries(A.PAIR)) for (const [k, [t, d]] of Object.entries(v)) { tooLong(t, `PAIR.${ax}.${k}.title`); tooLong(d, `PAIR.${ax}.${k}.desc`); }
-ok(A.STAGES.length === 4 && A.JOBS.length === 12 && A.MINIQ.length === 4, "상황 4 · 직군 12 · 미니퀴즈 4");
+ok(A.STAGES.length === 5 && A.JOBS.length === 12 && A.MINIQ.length === 4, "상황 5 · 직군 12 · 미니퀴즈 4");
 for (const j of A.JOBS) tooLong(j.about, "JOBS.about " + j.id);
 
 /* ---------- 4-2) 톤 검사 (CLAUDE.md: 비하·결정론 금지, 재미용 표기, 존중 문구) ---------- */
@@ -267,7 +267,7 @@ for (const a of A.KEYS) for (const b of A.KEYS) for (const st of A.STAGES) {
   ok(r.axes.length === 4 && r.partnerTips.length === 4 && r.guess && r.mine && r.title && r.heartLabel, `연애 조언 구성 ${a}×${b}/${st.k}`);
   ok(r.hearts === A.pairScore(a, b), "하트 일치");
 }
-ok(adviceCount === 1024, "연애 조언 16×16×4 = 1024");
+ok(adviceCount === 1280, "연애 조언 16×16×5 = 1280");
 for (const t of A.KEYS) for (const j of A.JOBS) for (const m of A.MOODS) {
   const r = A.jobAdvice(t, j.id, m.k);
   ok(!/undefined|NaN/.test(JSON.stringify(r)), `직군 조언 ${t}/${j.id}/${m.k} 에 undefined`);

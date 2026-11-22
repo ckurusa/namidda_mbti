@@ -155,7 +155,7 @@ async function saveCard(spec, btn, how){
     const blob = await new Promise(res => c.toBlob(res, "image/png"));
     const file = new File([blob], spec.file, {type: "image/png"});
     if (how === "share" && navigator.canShare && navigator.canShare({files: [file]})) {
-      try { await navigator.share({files: [file], title: "MBTI"}); msg = "✅ 공유했어요"; }
+      try { await navigator.share({files: [file], title: "마음도감"}); msg = "✅ 공유했어요"; }
       catch (e) { msg = (e && e.name === "AbortError") ? label : "앗, 공유에 실패했어요"; }
     } else {
       const url = URL.createObjectURL(blob), a = document.createElement("a");

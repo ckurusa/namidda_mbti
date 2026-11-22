@@ -17,7 +17,7 @@ function pairScore(a,b){
 }
 const heartsStr = n => "♥".repeat(n) + "♡".repeat(5-n);
 
-/* 상황별 조언: me(내 유형) · other(상대 유형) · stageKey(crush/some/dating/slump) */
+/* 상황별 조언: me(내 유형) · other(상대 유형) · stageKey(crush/some/dating/slump/married) */
 function pairAdvice(me, other, stageKey){
   const stage = STAGES.find(s=>s.k===stageKey) || STAGES[0];
   const ax = pairAxes(me, other);
@@ -33,6 +33,7 @@ function pairAdvice(me, other, stageKey){
     crush:  `상대 눈에 비친 내 첫인상은 ${SHORT[me].tags.map(t=>"#"+t).join(" ")} 일지도?`,
     some:   `이 관계의 키워드: ${axes.map(x=>x.t).join(" · ")}`,
     dating: `둘의 케미 한 줄 요약 — “${title}”`,
+    married:`부부로서의 케미 한 줄 요약 — “${title}”`,
     slump:  diffs.length ? `지금의 답답함은 ‘${first.t}’에서 올 수 있어요` : "너무 닮은 사이라 신선함이 줄어든 걸지도 몰라요"
   }[stage.k];
   return {

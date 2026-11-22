@@ -127,7 +127,8 @@ function labJob(){
     <h3 class="sec">${MOODS.find(m=>m.k===S.mood).label.split(" ")[0]} 요즘의 나에게</h3>
     <p style="margin:0">${a.moodTip}</p>${a.moodNote ? `<p class="care">💡 ${a.moodNote}</p>` : ""}
     <h3 class="sec">🧭 이런 직군도 어울려요</h3>
-    <div>${a.alts.map(x=>`<button class="pill pbtn" onclick="labSet('job','${x.job.id}')">${x.job.icon} ${x.job.name} ${dotsStr(x.fit)}</button>`).join("")}</div>
+    ${a.alts.map(x=>`<div class="rankrow"><span class="ri">${x.job.icon}</span><div><b>${x.job.name}</b> <span class="dots" aria-label="적합도 ${x.fit}/5">${dotsStr(x.fit)}</span> <span class="sub">${FIT_LABEL[x.fit]}</span><div class="sub">${x.job.about}</div></div></div>`).join("")}
+    <p class="sub" style="margin:8px 0 0">다른 직군의 자세한 짐작은 위 ‘직군’ 목록에서 골라 보세요.</p>
   </div>`;
 }
 
