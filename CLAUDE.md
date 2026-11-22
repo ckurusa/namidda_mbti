@@ -96,6 +96,14 @@ tests/run.js          검증 테스트 (node tests/run.js)
 - HTML 요소 id를 바꾸면 JS의 `$("id")` 와 어긋난다 → 테스트가 id 참조를 검사하니 반드시 돌린다.
 - 화면을 추가하면 `core.js` 의 `VIEWS`, `index.html` 의 `<section id>`, `app.js` 라우터를 함께 수정한다.
 
+## 배포 (GitHub Pages) — 2026-11-22 완료
+- 주소: https://ckurusa.github.io/namidda_mbti/ · 저장소: `ckurusa/namidda_mbti` (**Public**) · `main` 브랜치 루트가 곧 배포본이다. main 에 push 하면 1~2분 안에 갱신된다.
+- **push·저장소 설정 변경은 사용자가 요청했을 때만** 한다(공개 사이트에 바로 반영된다). 먼저 `node tests/run.js` 통과를 확인한다.
+- **커밋 작성자는 이 저장소의 로컬 git 설정**(`user.name=ckurusa`, GitHub noreply 이메일)을 쓴다. 전역 git 설정의 이름·이메일은 공개되므로 쓰지 않는다. 이 로컬 설정을 지우거나 바꾸지 않는다.
+- 올리기 전에 이메일·로컬 경로(`C:/Users/...`)·비밀값이 파일에 없는지 `grep` 으로 확인한다.
+- 인증: `git -c credential.helper='!gh auth git-credential' push` (전역 설정을 건드리지 않는다).
+- `og:url`/`og:image` 는 위 배포 주소의 절대 주소다. 저장소 이름이나 계정이 바뀌면 함께 고친다.
+
 ## 화면 확인 방법 (헤드리스 Chrome)
 - 테스트는 DOM 을 흉내 낸 것이라 **보이는 모양은 검증하지 못한다.** 화면을 바꿨다면 Chrome 헤드리스로 캡처해 눈으로 확인한다:
   `chrome --headless=new --allow-file-access-from-files --window-size=410,1500 --screenshot=out.png file:///.../index.html#lab/ENFP/heat`
